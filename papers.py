@@ -44,7 +44,7 @@ def build_author_list():
     authors = list(authors_names)
 
 def extract_store_papers():
-  with open(outputfile, 'w', newline='') as outfile:
+  with open(outputfile, 'w', newline='', encoding='utf-8') as outfile:
     fieldnames = ['author', 'title']
     writer = csv.DictWriter(outfile, fieldnames=fieldnames)
     writer.writeheader()
@@ -57,7 +57,7 @@ def extract_store_papers():
           search_query = scholarly.search_author(author['Name'])
         author_details = next(search_query).fill()
         for pub in author_details.publications:
-          writer.writerow({'author': author['Name'].encode('utf8'), 'title': pub.bib['title'].encode('utf8')})
+          writer.writerow({'author': author['Name'], 'title': pub.bib['title']})
 
 def main(argv):
   parse_args(argv)
